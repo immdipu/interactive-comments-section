@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import Comment from "./components/Comment";
+import MainCommentReplyBox from "./components/MainCommentReplyBox";
+import { useCommentContext } from "./Comment_context";
 
 function App() {
+  const { data } = useCommentContext();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-2xl w-full m-auto mt-20 flex flex-col gap-4">
+      {data.comments.map((item) => {
+        return (
+          <Comment
+            key={item.id}
+            currentuser={data.currentUser}
+            item={item}
+            isreply={false}
+            userID={item.id}
+          />
+        );
+      })}
+      <MainCommentReplyBox />
     </div>
   );
 }
